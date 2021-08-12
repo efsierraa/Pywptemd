@@ -5,40 +5,56 @@ from sklearn.decomposition import FastICA
 
 class wptemd:
     
-    def __init__(self, data: np.array = np.random.rand(19,3000)):
-        self.data = data
-        self.channels, self.length = data.shape
-
-    def wpt_filtering(self,**kwargs):
+    def __init__(self, **kwargs):
         # input arguments for wavelet packet decomposition:
         # wavelet = 'dmey' | Discrete Meyer (FIR Approximation)
         # maxlevel = 7 | decomposition levels
         if kwargs:
-            pywt_params = {key:value for key, value in kwargs.items()}
+            self.pywt_params = {key:value for key, value in kwargs.items()}
         else:
-            pywt_params = {'wavelet':'dmey', 'maxlevel':7}
+            self.pywt_params = {'wavelet':'dmey', 'maxlevel':7}
+        
+        
+
+    def wpt_filtering(self, data: np.array = np.random.randn(19,3000)):
+        # input - data channels x N EEG measurement
+        data = data
+        channels, length = data.shape
         
         # wavelet packet computation for all channels
         wp = dict()
-        for c in range(self.channels):
-            x = self.data[c,:]
-            wp[f'c_{c}'] = pywt.WaveletPacket(data=x, mode='symmetric', **pywt_params)
+        for c in range(channels):
+            x = data[c,:]
+            wp[f'c_{c}'] = pywt.WaveletPacket(data=x, mode='symmetric', **self.pywt_params)
         
-        # Node's energy filtering criterion
+        # Node's energy filtering criterion - step 1 getting a dict with keys = nodes, 
+        # values = matrix channels x N
         nodes = [node.path for node in wp['c_0'].get_level(7, 'natural')]
-        print(len(nodes))
         wp_nodes = dict()
         for node in nodes:
             N = wp[f'c_{c}'][node].data.size
-            wp_node = np.zeros([self.channels, N])
-            for c in range(self.channels):
+            wp_node = np.zeros([channels, N])
+            for c in range(channels):
                 wp_node[c,:] = wp[f'c_{c}'][node].data
             wp_nodes[node] = wp_node
-        return wp_nodes
+
+        # Node's energy filtering criterion - step 2 computing energy criterion for node removal
+        for key, value in wp_nodes.items():
+            wp_nodes[key] = np.std(np.sum(value**2, axis = 1)) # eq (4) in paper
+        max_value = max(wp_nodes.values())  # maximum value
+        node_2_remove = [k for k, v in wp_nodes.items() if v == max_value][0]
+        
+
+        # Node's energy filtering criterion - step 3 removing node and reconstructing data
+        filtered_data = np.zeros(data.shape)
+        for c, key in enumerate(wp.keys()):
+            del wp[key][node_2_remove]
+            filtered_data[c,:] = wp[key].reconstruct()
+        return filtered_data
 
 if __name__ == '__main__':
     fs = 500
-    data = np.random.rand(19,6*fs)
-    wptemd = wptemd(data)
-    wp = wptemd.wpt_filtering()
-    print(wp['a'*7].shape)
+    data = np.random.randn(19,6*fs)
+    wptemd = wptemd()
+    wp = wptemd.wpt_filtering(data)
+    print(wp.shape)
