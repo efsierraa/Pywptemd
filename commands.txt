@@ -1,0 +1,47 @@
+# system's pip, normal pip is anaconda's pip
+/usr/bin/pip --version
+
+#poetry commands
+poetry new wptemd # create working dir 
+poetry env use python3.9 # create viertual envairoment
+poetry add feedparser # adding dependencies
+poetry add --dev pytest # addin pytest dependencies
+poetry run pytest # run pytests in tests folder
+
+git init # initializa repository
+git status # status git repository
+.gitignore # text file with files pattens ignores to version control
+git add . # add all the files
+git commit -m "first commit" # commit files
+git remote -v # view remote repo address
+git remote add origin https://github.com/efsierraa/wptemd.git # adding remote repo address
+git push -u origin master # push to origin and master branch, -u sets git push by default
+git mv README.rst README.md # rename readme file
+git add . & git commit # gcme used by pybites
+
+# if git has authentication failed
+git remote -v 
+git remote remove origin 
+git remote add origin git@github.com:user/repo.git 
+# modified setting vscode
+unselected git:terminalauthentication
+
+# run python program with poetry
+poetry run python -m <script_address>
+
+# create a testing branch and go 
+git checkout -b testing # create a branch testing and 'checkout' go to branch
+git branch testing # step 1 line 33
+git checkout testing # step 2 line 33
+
+# remove file using git
+git rm <file_path>
+
+# change to master branch
+git co master # checkout co abb used in pybites
+
+# log of commits
+git log # exit with q
+
+# update repo from the web
+git pull
