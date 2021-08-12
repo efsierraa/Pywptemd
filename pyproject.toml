@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "wptemd"
+version = "0.1.0"
+description = "wptemd artifact supression"
+authors = ["Edgar Sierra <efsierraa@unal.edu.co>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+feedparser = "^6.0.8"
+numpy = "^1.21.1"
+matplotlib = "^3.4.2"
+PyWavelets = "^1.1.1"
+emd = "^0.4.0"
+scikit-learn = "^0.24.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
