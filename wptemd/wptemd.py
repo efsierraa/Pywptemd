@@ -13,8 +13,6 @@ class wptemd:
             self.pywt_params = {key:value for key, value in kwargs.items()}
         else:
             self.pywt_params = {'wavelet':'dmey', 'maxlevel':7}
-        
-        
 
     def wpt_filtering(self, data: np.array = np.random.randn(19,3000)):
         # input - data channels x N EEG measurement
@@ -43,7 +41,6 @@ class wptemd:
             wp_nodes[key] = np.std(np.sum(value**2, axis = 1)) # eq (4) in paper
         max_value = max(wp_nodes.values())  # maximum value
         node_2_remove = [k for k, v in wp_nodes.items() if v == max_value][0]
-        
 
         # Node's energy filtering criterion - step 3 removing node and reconstructing data
         filtered_data = np.zeros(data.shape)
