@@ -37,13 +37,5 @@ print(data_filtered_wtpica.shape)
 ### References
 
 ```
-@article{bono2016hybrid,
-  title={Hybrid wavelet and EMD/ICA approach for artifact suppression in pervasive EEG},
-  author={Bono, Valentina and Das, Saptarshi and Jamal, Wasifa and Maharatna, Koushik},
-  journal={Journal of neuroscience methods},
-  volume={267},
-  pages={89--107},
-  year={2016},
-  publisher={Elsevier}
-}
+[1] Bono, V., Das, S., Jamal, W., & Maharatna, K. (2016). Hybrid wavelet and EMD/ICA approach for artifact suppression in pervasive EEG. Journal of neuroscience methods, 267, 89-107.
 ```
