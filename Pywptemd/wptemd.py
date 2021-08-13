@@ -14,7 +14,7 @@ class wptemd:
         else:
             self.pywt_params = {'wavelet':'dmey', 'maxlevel':7}
 
-    def wpt_filter(self, data: np.array = np.random.randn(19,3000)):
+    def wpt_filter(self, data: np.array = np.random.randn(19,3000)) -> np.array:
         # input - data channels x N EEG measurement
         data = data
         channels, length = data.shape
@@ -49,6 +49,9 @@ class wptemd:
                 del wp[key][node]
             filtered_data[c,:] = wp[key].reconstruct()
         return filtered_data
+
+    def wptemd_filter(self, data: np.array = np.random.randn(19,3000), data_rest: np.array = np.random.randn(19,3000,)*.25) -> np.array:
+        pass
 
 if __name__ == '__main__':
     fs = 500
