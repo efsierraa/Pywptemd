@@ -40,12 +40,13 @@ class wptemd:
         for key, value in wp_nodes.items():
             wp_nodes[key] = np.std(np.sum(value**2, axis = 1)) # eq (4) in paper
         max_value = max(wp_nodes.values())  # maximum value
-        node_2_remove = [k for k, v in wp_nodes.items() if v == max_value][0]
+        node_2_remove = [k for k, v in wp_nodes.items() if v == max_value]
 
         # Node's energy filtering criterion - step 3 removing node and reconstructing data
         filtered_data = np.zeros(data.shape)
         for c, key in enumerate(wp.keys()):
-            del wp[key][node_2_remove]
+            for node in node_2_remove:
+                del wp[key][node]
             filtered_data[c,:] = wp[key].reconstruct()
         return filtered_data
 
