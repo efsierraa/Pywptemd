@@ -1192,7 +1192,7 @@ notebook = ">=4.4.1"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "0244288981efcad151f241ad74db4b769113b1097e0f16f25656b62d174cef48"
+content-hash = "e3bbd148fb9668373f27cc93edb2eea067f408c7d8df396d9d56a44ecac5f15d"
 
 [metadata.files]
 alabaster = [
