@@ -53,6 +53,6 @@ class wptemd:
 if __name__ == '__main__':
     fs = 500
     data = np.random.randn(19,6*fs)
-    wptemd = wptemd()
-    wp = wptemd.wpt_filter(data)
-    print(wp.shape)
+    wptemd_filter = wptemd()
+    wpt_filtered = wptemd_filter.wpt_filter(data)
+    print(wpt_filtered.shape)
