@@ -50,7 +50,8 @@ class wptemd:
             filtered_data[c,:] = wp[key].reconstruct()
         return filtered_data
 
-    def wptemd_filter(self, data: np.array = np.random.randn(19,3000), data_rest: np.array = np.random.randn(19,3000,)*.25) -> np.array:
+    def wptemd_filter(self, data: np.array = np.random.randn(19,3000), \
+        data_rest: np.array = np.random.randn(19,3000,)*.25) -> np.array:
         pass
 
 if __name__ == '__main__':
