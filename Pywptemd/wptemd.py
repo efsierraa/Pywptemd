@@ -128,13 +128,40 @@ class wptemd:
         return entropy(counts) # entropy counts is entropy of a distribution for given probability values
 
     def wptica_filter(self, data: np.array = np.random.randn(19,3000)) -> np.array:
-        pass
+        # input data EEG measurements of 19xN with artifacts to be removed
+        # Note that FastICA assumes Nx sources array so we have to transpose data before apply ICA
+        channels = data.shape[0]
+
+        # filtering data with wpt
+        data = self._wpt_filter(data)
+
+        # decomposing with ICA data
+        ica = FastICA(random_state=0, **self.ica_params)
+        ica_data = ica.fit_transform(data.T)
+
+        # criterion to set to zero highest std component and filter signal
+        sigma_c = np.std(ica_data, axis= 0)
+        max_c = np.argmax(sigma_c)
+        ica_data[:,max_c] = np.zeros(ica_data.shape[0])
+        data_filtered = ica.inverse_transform(ica_data, copy=True)
+        
+        return data_filtered.T
 if __name__ == '__main__':
     fs = 500
     data = np.random.randn(19,6*fs)
     data_rest = np.random.randn(19,6*fs)*.25
-    wptemd_ob = wptemd()
-    #wpt_filtered = wptemd_ob._wpt_filter(data)
-    #print(wpt_filtered.shape)
-    data_filtered_wptemd = wptemd_ob.wptemd_filter(data, data_rest)
+
+    parameters = {'wavelet':'dmey', 'maxlevel':7, # wavelet parameters
+    'imf_opts':{'stop_method':'rilling', 'rilling_thresh':(0.05, 0.5, 0.05)}, # emd parameters
+    'w':0.5, # emd selection criterion J parameter
+    'n_components':19} # ICA parameter
+    filter = wptemd(**parameters)
+
+    wpt_filtered = filter._wpt_filter(data)
+    print(wpt_filtered.shape)
+
+    data_filtered_wptemd = filter.wptemd_filter(data, data_rest)
     print(data_filtered_wptemd.shape)
+
+    data_filtered_wtpica = filter.wptica_filter(data)
+    print(data_filtered_wtpica.shape)
