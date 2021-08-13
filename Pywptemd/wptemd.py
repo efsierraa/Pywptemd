@@ -44,7 +44,8 @@ class wptemd:
 
         # Node's energy filtering criterion - step 3 removing node and reconstructing data
         filtered_data = np.zeros(data.shape)
-        for c, key in enumerate(wp.keys()):
+        for key in wp.keys(): # dicts are unordered so not a good idea to use enumerate
+            c = int(key.split('_')[-1])
             for node in node_2_remove:
                 del wp[key][node]
             filtered_data[c,:] = wp[key].reconstruct()
