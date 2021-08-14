@@ -1,5 +1,4 @@
 import numpy as np
-from numpy.core.fromnumeric import argmax
 import pywt
 import emd.sift as emd
 import pandas as pd
