@@ -6,7 +6,9 @@ A class used to remove artifacts from EEG signals, the default EEG signal has a 
 EEG data with artifacts to be filtered, and EEG data in resting state, dimensions N x channels where N is the length of an EEG record
 ### Methods
 _wpt_filter: filters data selecting the most corrupt node in a wpt removes it and makes the reconstruction of the signal, a wpt is computed per channel
+
 wptemd_filter: applies _wpt_filter, and after decomposing each filtered channel into imfs using emd, to filter again the signal removing the most corrupt imf computing J a criterion based on entropy and std normalized with respect to the resting data
+
 wptica_filter: like in wptemd_filter applies _wpt_filter to filter the data, afterward a second ICA based filter is applied where is removed the most contaminated ICA component, and reconstructed the sources
 ### Output
 Data_filtered a filtered version of the original EEG data
