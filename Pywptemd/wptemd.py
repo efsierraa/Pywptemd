@@ -22,6 +22,7 @@ class wptemd:
         if kwargs:
             self.pywt_params = {key:kwargs.get(key, self.pywt_params[key]) for key in self.pywt_params.keys()}
             self.emd_params = {key:kwargs.get(key, self.emd_params[key]) for key in self.emd_params.keys()}
+            self.imfselect_params = {key:kwargs.get(key, self.imfselect_params[key]) for key in self.imfselect_params.keys()}
             self.ica_params = {key:kwargs.get(key, self.ica_params[key]) for key in self.ica_params.keys()}
             
 
