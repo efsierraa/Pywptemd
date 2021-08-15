@@ -15,6 +15,9 @@ Data_filtered a filtered version of the original EEG data
 
 ### Example
 ```python
+import numpy as np
+from Pywptemd.wptemd import wptemd
+
 fs = 500
 data = np.random.randn(19,6*fs)
 data_rest = np.random.randn(19,6*fs)*.25
