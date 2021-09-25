@@ -1,4 +1,4 @@
-from wptemd import __version__
+from Pywptemd import __version__
 
 
 def test_version():
