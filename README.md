@@ -1,4 +1,7 @@
 # WPTEMD
+[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-397/)
+[![Poetry](https://img.shields.io/badge/poetry-1.1.11-red.svg)](https://python-poetry.org/docs/master/#installation/)
+
 A class used to remove artifacts from EEG signals, the default EEG signal has a duration of 6 seconds and 19 channels.
 
 ## How to use it:
